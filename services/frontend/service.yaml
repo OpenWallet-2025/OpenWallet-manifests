@@ -1,8 +1,6 @@
 apiVersion: v1
 kind: Service
 metadata:
-  app: openwallet-frontend
-  namespace: openwallet
   name: front-server # 💡  Ingress가 바라보는 서비스 이름과 일치
 spec:
   type: ClusterIP
