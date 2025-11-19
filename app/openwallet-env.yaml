@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openwallet-env
+spec:
+  project: openwallet
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
+    path: /environments/dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+
