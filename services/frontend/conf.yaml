@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  app:  openwallet-frontend
   name: openwallet-front-config
   namespace: openwallet
 data:

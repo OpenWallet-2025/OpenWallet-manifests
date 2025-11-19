@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  app: openwallet-frontend
   namespace: openwallet
   name: front-server-deployment
   labels:
