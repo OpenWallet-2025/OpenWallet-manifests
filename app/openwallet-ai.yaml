@@ -6,6 +6,7 @@ spec:
   project: openwallet
   destination:
     server: https://kubernetes.default.svc
+    namespace: openwallet
   source:
     repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
     path: services/ai
