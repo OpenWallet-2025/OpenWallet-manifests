@@ -1,0 +1,38 @@
+{{- if .Values.frontend.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.frontend.configMapName }}
+  namespace: {{ .Release.Namespace }}
+data:
+  {{ .Values.frontend.configFile }}: |
+    server {
+        listen 80;
+        server_name _;
+        root /static;
+
+        location ~* ^/js/.*\.(js)$ {
+          expires off;
+          add_header Cache-Control "public, must-revalidate";
+          try_files $uri =404;
+        }
+
+        location ~* ^/css/.*\.(css)$ {
+          expires off;
+          add_header Cache-Control "public, must-revalidate";
+          try_files $uri =404;
+        }
+
+        location ~* ^/img/.*\.(jpg|jpeg|png|gif|svg|ico|webp)$ {
+          expires off;
+          add_header Cache-Control "public";
+          try_files $uri =404;
+        }
+
+        location / {
+          index index.html;
+          add_header Cache-Control "no-cache, no-store, must-revalidate";
+          try_files $uri $uri/ =404;
+        }
+    }
+{{- end }}

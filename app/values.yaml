@@ -1,0 +1,38 @@
+frontend:
+  enabled: true
+
+  # Deployment 설정
+  image: jaejeong999/nginx-front:4
+  replicaCount: 3
+  port: 80
+
+  # NGINX configMap 설정
+  configMapName: openwallet-front-config
+  configFile: default.conf
+
+  # Service 설정
+  service:
+    name: front-server
+    port: 80
+    targetPort: 80
+
+backend:
+  enabled: false
+  image: 
+  port: 
+  replicaCount: 2
+
+ai:
+  enabled: false
+  image: 
+  port: 
+  replicaCount: 1
+
+
+ingress:
+  enabled: true
+  className: gce
+  staticIP: open-wallet-ip
+  host: openwallet2025.com
+  serviceName: front-server
+  servicePort: 80
