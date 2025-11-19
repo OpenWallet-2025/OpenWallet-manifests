@@ -24,7 +24,7 @@ data:
     }
 
 
-    # 이미지 파일 
+    # 이미지 파일 ㅇㅇㅇㅇ
       location ~* ^/img/.*\.(jpg|jpeg|png|gif|svg|ico|webp)$ {
           expires off;
           add_header Cache-Control "public";
