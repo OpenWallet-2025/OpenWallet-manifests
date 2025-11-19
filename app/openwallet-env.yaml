@@ -9,7 +9,7 @@ spec:
     namespace: openwallet
   source:
     repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
-    path: /environments/dev
+    path: environments/dev
   syncPolicy:
     automated:
       prune: true
