@@ -8,7 +8,7 @@ spec:
     server: https://kubernetes.default.svc
   source:
     repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
-    path: app
+    path: services/ai
   syncPolicy:
     automated:
       prune: true
