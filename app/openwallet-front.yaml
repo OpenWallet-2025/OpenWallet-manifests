@@ -8,7 +8,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: openwallet
   source:
-    repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
+    repoURL: https://github.com/OpenWallet-2025/openwallet-manifests/tree/develop
     path: services/frontend
     directory:
       # 하위 디렉토리까지 재귀적으로 탐색할지 여부 (필요하면 true)
