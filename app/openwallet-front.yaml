@@ -10,6 +10,8 @@ spec:
   source:
     repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
     path: services/frontend/deployment.yaml
+    directory:
+      recurse: true
   syncPolicy:
     automated:
       prune: true
