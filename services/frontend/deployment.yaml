@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: front-server-deployment
   labels:
-    app: front-server
+    app: openwallet-frontend
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: front-server
+      app: openwallet-frontend
   template:
     metadata:
       labels:
-        app: front-server
+        app: openwallet-frontend
     spec:
       containers:
         - name: nginx
