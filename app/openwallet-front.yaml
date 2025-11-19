@@ -11,7 +11,12 @@ spec:
     repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
     path: services/frontend
     directory:
-      recurse: true
+      # 하위 디렉토리까지 재귀적으로 탐색할지 여부 (필요하면 true)
+      recurse: false 
+      # 특정 파일만 포함하도록 강제 (모든 .yaml 파일만 포함)
+      include: '*.yaml' 
+      # 특정 파일을 제외할 필요가 있다면 (예: 개발용 파일 제외)
+      # exclude: 'temp-*.yaml'
   syncPolicy:
     automated:
       prune: true
