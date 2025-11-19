@@ -8,7 +8,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: openwallet
   source:
-    repoURL: https://github.com/OpenWallet-2025/openwallet-manifests/tree/develop
+    repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
     path: services/frontend
     directory:
       # 하위 디렉토리까지 재귀적으로 탐색할지 여부 (필요하면 true)
@@ -17,6 +17,7 @@ spec:
       include: '*.yaml' 
       # 특정 파일을 제외할 필요가 있다면 (예: 개발용 파일 제외)
       # exclude: 'temp-*.yaml'
+    targetRevision: develop
   syncPolicy:
     automated:
       prune: true
