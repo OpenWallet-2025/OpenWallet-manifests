@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openwallet
+  name: front-server # 💡  Ingress가 바라보는 서비스 이름과 일치
+spec:
+  type: ClusterIP
+  selector:
+    app: front-server
+  ports:
+  - protocol: TCP
+    port: 80 # Service의 외부 포트 (Ingress가 요청을 보낼 포트)
+    targetPort: 80 # Pod 컨테이너의 포트 
+
+    
