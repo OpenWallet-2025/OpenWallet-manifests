@@ -16,7 +16,7 @@ spec:
       # 특정 파일만 포함하도록 강제 (모든 .yaml 파일만 포함)
       # 특정 파일을 제외할 필요가 있다면 (예: 개발용 파일 제외)
       # exclude: 'temp-*.yaml'
-    targetRevision: HEAD
+    targetRevision: develop
   syncPolicy:
     automated:
       prune: true
