@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: openwallet-front-config
   namespace: openwallet
 data:
   default.conf: |
