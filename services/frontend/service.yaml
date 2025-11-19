@@ -7,7 +7,7 @@ spec:
   selector:
     app: front-server
   ports:
-  - protocol: TCP
-    port: 80 # Service의 외부 포트 (Ingress가 요청을 보낼 포트)
-    targetPort: 80 # Pod 컨테이너의 포트 
+    - protocol: TCP
+      port: 80 # Service의 외부 포트 (Ingress가 요청을 보낼 포트)
+      targetPort: 80 # Pod 컨테이너의 포트
 
