@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "openwallet-frontend.fullname" . }}
+  namespace: openwallet
   labels:
     {{ include "openwallet-frontend.labels" . | nindent 2 }}
 spec:
