@@ -8,10 +8,12 @@ metadata:
 spec:
   replicas: {{ .Values.frontend.replicaCount }}
   selector:
-    matchLabels: {{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
+    matchLabels: 
+    {{ include "openwallet-frontend.selectorLabels" . | nindent 4 }}
   template:
     metadata:
-      labels: {{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
+      labels: 
+      {{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
     spec:
       containers:
         - name: nginx
