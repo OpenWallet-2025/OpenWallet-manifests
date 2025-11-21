@@ -8,7 +8,7 @@ spec:
   project: openwallet
   source:
     repoURL: {{ .Values.git.repoURL }}
-    path: {{ .Values.applications.frontend.path }}
+    path: apps/frontend
     targetRevision: {{ .Values.git.targetRevision }}
     
   destination:
