@@ -4,17 +4,14 @@ kind: Deployment
 metadata:
   name: {{ include "openwallet-frontend.fullname" . }}
   namespace: openwallet
-  labels:
-    {{ include "openwallet-frontend.labels" . | nindent 2 }}
+  labels: {{ include "openwallet-frontend.labels" . | nindent 2 }}
 spec:
   replicas: {{ .Values.frontend.replicaCount }}
   selector:
-    matchLabels:
-          {{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
+    matchLabels: {{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      labels:
-           {{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
+      labels: {{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
     spec:
       containers:
         - name: nginx
