@@ -11,7 +11,7 @@ This is used for Deployment/Service names when you want consistent naming.
 Create a fully qualified name: release-name + chart name
 */}}
 {{- define "openwallet-frontend.fullname" -}}
-{{- if .Values.fullnameOverride }}
+{{- if .Values.frontend.fullnameOverride }}
 {{- .Values.frontend.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
 {{- printf "%s-%s" .Release.Name (include "openwallet-frontend.name" .) | trunc 63 | trimSuffix "-" }}
