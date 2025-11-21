@@ -1,5 +1,5 @@
 apiVersion: v2
-name: openwallet-ingress-controller
+name: openwallet-ingress
 description: ingress controller for OpenWallet
 type: application
 version: 0.1.0
