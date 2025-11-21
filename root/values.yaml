@@ -11,7 +11,7 @@ applications:
   frontend:
     enabled: true
     name: openwallet-frontend-dev
-    path: root/frontend
+    path: apps/frontend
     helm:
       releaseName: openwallet-frontend-dev
 
