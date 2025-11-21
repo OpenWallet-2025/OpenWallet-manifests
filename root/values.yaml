@@ -24,7 +24,7 @@ applications:
     path: apps/ai
 
   ingress:
-  enabled: true
-  name: openwallet-ingress-dev
-  path: infra/ingress
+    enabled: true
+    name: openwallet-ingress-dev
+    path: infra/ingress
 
