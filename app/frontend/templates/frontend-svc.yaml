@@ -4,11 +4,11 @@ kind: Service
 metadata:
   name: {{ .Values.frontend.service.name }}
   labels:
-    app: openwallet-frontend
+    {{ include "openwallet-frontend.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
   selector:
-    app: openwallet-frontend   # Deployment와 동일해야 함
+    {{ include "openwallet-frontend.selectorLabels" . | nindent 4 }}
   ports:
     - protocol: TCP
       port: {{ .Values.frontend.service.port }}

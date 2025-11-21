@@ -1,0 +1,8 @@
+
+ingress:
+  enabled: true
+  className: gce
+  staticIP: open-wallet-ip
+  host: openwallet2025.com
+  serviceName: front-server
+  servicePort: 80

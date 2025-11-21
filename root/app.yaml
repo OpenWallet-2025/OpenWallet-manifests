@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openwallet-frontend-dev
+  namespace: argocd
+spec:
+  project: openwallet
+  source:
+    repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
+    path: apps/frontend
+    targetRevision: test
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openwallet
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openwallet-backend-dev
+  namespace: argocd
+spec:
+  project: openwallet
+  source:
+    repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
+    path: apps/backend
+    targetRevision: test
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openwallet
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openwallet-ai-dev
+  namespace: argocd
+spec:
+  project: openwallet
+  source:
+    repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
+    path: apps/ai
+    targetRevision: test
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openwallet
