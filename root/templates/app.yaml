@@ -10,6 +10,9 @@ spec:
     repoURL: {{ .Values.git.repoURL }}
     path: {{ .Values.applications.frontend.path }}
     targetRevision: {{ .Values.git.targetRevision }}
+    {{- with .helm }}
+    helm:
+    {{- toYaml . | nindent 6 }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .Values.destination.namespace }}

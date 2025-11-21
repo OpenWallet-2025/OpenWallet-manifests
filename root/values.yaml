@@ -12,19 +12,26 @@ applications:
     enabled: true
     name: openwallet-frontend-dev
     path: apps/frontend
+    helm:
+      releaseName: openwallet-frontend-dev
 
   backend:
     enabled: false
     name: openwallet-backend-dev
     path: apps/backend
+    helm:
+      releaseName: openwallet-backend-dev
 
   ai:
     enabled: false
     name: openwallet-ai-dev
     path: apps/ai
+    helm:
+      releaseName: openwallet-ai-dev
 
   ingress:
     enabled: true
     name: openwallet-ingress-dev
     path: infra/ingress
-
+    helm:
+        releaseName: openwallet-ingress-dev
