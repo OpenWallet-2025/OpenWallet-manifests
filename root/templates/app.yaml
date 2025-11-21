@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: {{ .Values.applications.frontend.name }}
   namespace: argocd
+  finalizers:
+      - resources-C.argocd.argoproj.io
 spec:
   project: openwallet
   source:
@@ -23,6 +25,8 @@ kind: Application
 metadata:
   name: {{ .Values.applications.backend.name }}
   namespace: argocd
+  finalizers:
+      - resources-finalizer.argocd.argoproj.io
 spec:
   project: openwallet
   source:
@@ -41,6 +45,8 @@ kind: Application
 metadata:
   name: {{ .Values.applications.ai.name }}
   namespace: argocd
+   finalizers:
+      - resources-finalizer.argocd.argoproj.io
 spec:
   project: openwallet
   source:
@@ -60,6 +66,8 @@ kind: Application
 metadata:
   name: {{ .Values.applications.ingress.name }}
   namespace: argocd
+  finalizers:
+      - resources-finalizer.argocd.argoproj.io
 spec:
   project: openwallet
   source:
