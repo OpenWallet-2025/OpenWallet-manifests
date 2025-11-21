@@ -5,16 +5,16 @@ metadata:
   name: {{ include "openwallet-frontend.fullname" . }}
   namespace: openwallet
   labels: 
-{{ include "openwallet-frontend.labels" . | nindent 2 }}
+{{ include "openwallet-frontend.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.frontend.replicaCount }}
   selector:
     matchLabels: 
-{{ include "openwallet-frontend.selectorLabels" . | nindent 4 }}
+{{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels: 
-{{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
+{{ include "openwallet-frontend.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: nginx
