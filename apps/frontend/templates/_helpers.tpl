@@ -4,7 +4,7 @@ Generate a name that is unique for this chart.
 This is used for Deployment/Service names when you want consistent naming.
 */}}
 {{- define "openwallet-frontend.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- default .Chart.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -12,7 +12,7 @@ Create a fully qualified name: release-name + chart name
 */}}
 {{- define "openwallet-frontend.fullname" -}}
 {{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- .Values.frontend.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
 {{- printf "%s-%s" .Release.Name (include "openwallet-frontend.name" .) | trunc 63 | trimSuffix "-" }}
 {{- end -}}
