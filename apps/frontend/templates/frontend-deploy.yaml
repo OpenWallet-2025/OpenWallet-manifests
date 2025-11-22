@@ -7,7 +7,7 @@ metadata:
   labels: 
 {{ include "openwallet-frontend.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.frontend.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels: 
 {{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
@@ -33,4 +33,6 @@ spec:
             items:
               - key: {{ .Values.frontend.configFile }}
                 path: {{ .Values.frontend.configFile }}
+      resources:
+{{- toYaml .Values.resources | nindent 12 }}
 {{- end }}
