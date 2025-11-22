@@ -1,0 +1,38 @@
+{{- if .Values.frontend.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "openwallet-frontend.fullname" . }}
+  namespace: openwallet
+  labels: 
+{{ include "openwallet-frontend.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: 
+{{ include "openwallet-frontend.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: 
+{{ include "openwallet-frontend.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: nginx
+          image: {{ .Values.frontend.image }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.frontend.port }}
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/conf.d/{{ .Values.frontend.configFile }}
+              subPath: {{ .Values.frontend.configFile }}
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: {{ .Values.frontend.configMapName }}
+            items:
+              - key: {{ .Values.frontend.configFile }}
+                path: {{ .Values.frontend.configFile }}
+      resources:
+{{- toYaml .Values.resources | nindent 12 }}
+{{- end }}

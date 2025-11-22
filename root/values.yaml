@@ -1,0 +1,38 @@
+env: dev
+
+git:
+  repoURL: https://github.com/OpenWallet-2025/OpenWallet-manifests
+
+  targetRevision: test   # ← feature/test/dev branch 등 환경별 변경되는 브랜치
+
+destination:
+  namespace: openwallet
+
+applications:
+  frontend:
+    enabled: true
+    name: openwallet-frontend-dev
+    path: .
+    helm:
+      releaseName: openwallet-frontend-dev
+
+  backend:
+    enabled: false
+    name: openwallet-backend-dev
+    path: apps/backend
+    helm:
+      releaseName: openwallet-backend-dev
+
+  ai:
+    enabled: false
+    name: openwallet-ai-dev
+    path: apps/ai
+    helm:
+      releaseName: openwallet-ai-dev
+
+  ingress:
+    enabled: true
+    name: openwallet-ingress-dev
+    path: infra/ingress
+    helm:
+        releaseName: openwallet-ingress-dev
