@@ -1,7 +1,8 @@
 env: dev
 
 git:
-  repoURL: https://github.com/OpenWallet-2025/openwallet-manifests
+  repoURL: https://github.com/OpenWallet-2025/OpenWallet-manifests
+
   targetRevision: test   # ← feature/test/dev branch 등 환경별 변경되는 브랜치
 
 destination:
