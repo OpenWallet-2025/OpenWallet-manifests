@@ -59,6 +59,8 @@ spec:
               value: {{ .Values.backend.env.dbUsername }}
             - name: SPRING_DATASOURCE_PASSWORD
               value: {{ .Values.backend.env.dbPassword | quote }}
+            - name: SERVER_SERVLET_CONTEXT_PATH
+              value: {{ .Values.backend.contextPath }}
 
           # 3. 리소스 설정
           resources:

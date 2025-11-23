@@ -10,6 +10,7 @@ backend:
     pullPolicy: Always
   replicaCount: 1
   port: 8080
+  contextPath: "/api"
 
   env:
     dbUrl: "jdbc:mysql://10.123.144.3:3306/openwallet-db?useSSL=false&allowPublicKeyRetrieval=true"
