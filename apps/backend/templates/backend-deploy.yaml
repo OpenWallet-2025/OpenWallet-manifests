@@ -54,11 +54,11 @@ spec:
 
         env:
           - name: SPRING_DATASOURCE_URL
-            value: {{ .Values.backend.env.db-url }}
+            value: {{ .Values.backend.env.dbUrl }}
           - name: SPRING_DATASOURCE_USERNAME
-            value: {{ .Values.backend.env.db-user-name }}
+            value: {{ .Values.backend.env.db-userName }}
           - name: SPRING_DATASOURCE_PASSWORD
-            value: {{ .Values.backend.env.db-password | quote }} # quote 함수로 문자열 처리 권장
+            value: {{ .Values.backend.env.dbPassword | quote }} # quote 함수로 문자열 처리 권장
 
         # 리소스 설정 (CPU/Memory 제한)
         resources:

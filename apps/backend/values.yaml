@@ -11,9 +11,9 @@ backendend:
   port: 8080
 
   env:
-    db-url: "jdbc:mysql://10.123.144.3:3306/openwallet-db?useSSL=false&allowPublicKeyRetrieval=true"
-    db-user-name: "openwallet"
-    db-password: "openwallet1234"
+    dbUrl: "jdbc:mysql://10.123.144.3:3306/openwallet-db?useSSL=false&allowPublicKeyRetrieval=true"
+    dbUser-name: "openwallet"
+    dbPassword: "openwallet1234"
 
  
   # Service 설정
