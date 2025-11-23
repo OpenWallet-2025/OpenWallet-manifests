@@ -46,12 +46,15 @@ spec:
             periodSeconds: 20
 
           readinessProbe:
-            tcpSocket:
+            httpGet:
+              # Context Path가 /api 이므로 반드시 /api가 포함된 경로여야 합니다.
+              # Swagger 페이지나 Actuator 주소를 넣으세요.
               path: /api/swagger-ui/index.html
-              port: {{ .Values.backend.port }}
-            initialDelaySeconds: 50
-            periodSeconds: 10
+              port: 8080
+            initialDelaySeconds: 60  # 앱이 41초 걸리므로 60초로 넉넉하게!
+            periodSeconds: 15
             failureThreshold: 5
+            timeoutSeconds: 5
 
           # 2. 환경 변수
           env:
