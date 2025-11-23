@@ -1,4 +1,5 @@
-backendend:
+backend:
+
   fullnameOverride: openwallet-backend-server
   enabled: true
 
