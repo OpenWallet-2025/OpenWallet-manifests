@@ -6,6 +6,8 @@ metadata:
   namespace: openwallet
   labels:
     {{ include "openwallet-backend.labels" . | nindent 4 }}
+  annotations:
+    cloud.google.com/backend-config: '{"default": "backend-health-check"}'
 spec:
   type: ClusterIP
   selector:
