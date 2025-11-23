@@ -17,8 +17,15 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.ingress.serviceName }}
+                name: {{ .Values.ingress.frontend.serviceName }}
                 port:
-                  number: {{ .Values.ingress.servicePort }}
+                  number: {{ .Values.ingress.frontend.servicePort }}
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.backend.serviceName }}
+                port:
+                  number: {{ .Values.ingress.backend.servicePort }}
 {{- end }}
 

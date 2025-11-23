@@ -5,5 +5,9 @@ ingress:
   className: gce
   staticIP: open-wallet-ip
   host: openwallet2025.com
-  serviceName: front-server
-  servicePort: 80
+  frontend:
+    serviceName: front-server
+    servicePort: 80
+  backend:
+    serviceName: backend-server
+    servicePort: 8080
