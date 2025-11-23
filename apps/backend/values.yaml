@@ -12,7 +12,7 @@ backendend:
 
   env:
     dbUrl: "jdbc:mysql://10.123.144.3:3306/openwallet-db?useSSL=false&allowPublicKeyRetrieval=true"
-    dbUser-name: "openwallet"
+    dbUsername: "openwallet"
     dbPassword: "openwallet1234"
 
  
