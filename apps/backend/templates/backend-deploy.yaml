@@ -47,9 +47,11 @@ spec:
 
           readinessProbe:
             tcpSocket:
+              path: /api/swagger-ui/index.html
               port: {{ .Values.backend.port }}
-            initialDelaySeconds: 5
+            initialDelaySeconds: 50
             periodSeconds: 10
+            failureThreshold: 5
 
           # 2. 환경 변수
           env:
