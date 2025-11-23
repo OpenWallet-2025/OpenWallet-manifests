@@ -30,7 +30,7 @@ data:
         }
 
         location / {
-          login login.html;
+          index login.html;
           add_header Cache-Control "no-cache, no-store, must-revalidate";
           try_files $uri $uri/ =404;
         }
