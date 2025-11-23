@@ -5,7 +5,7 @@ metadata:
   name: {{ include "openwallet-backend.fullname" . }}
   namespace: openwallet
   labels:
-    {{- include "openwallet-backend.labels" . | nindent 4 }}
+{{- include "openwallet-backend.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   
@@ -19,11 +19,11 @@ spec:
 
   selector:
     matchLabels:
-      {{- include "openwallet-backend.selectorLabels" . | nindent 6 }}
+{{- include "openwallet-backend.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "openwallet-backend.selectorLabels" . | nindent 8 }}
+{{- include "openwallet-backend.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: backend
@@ -52,15 +52,15 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
 
-          env:
-            - name: SPRING_DATASOURCE_URL
-              value: {{ .Values.backend.env.db-url }}
-            - name: SPRING_DATASOURCE_USERNAME
-              value: {{ .Values.backend.env.db-user-name }}
-            - name: SPRING_DATASOURCE_PASSWORD
-              value: {{ .Values.backend.env.db-password | quote }} # quote 함수로 문자열 처리 권장
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: {{ .Values.backend.env.db-url }}
+          - name: SPRING_DATASOURCE_USERNAME
+            value: {{ .Values.backend.env.db-user-name }}
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: {{ .Values.backend.env.db-password | quote }} # quote 함수로 문자열 처리 권장
 
-          # 리소스 설정 (CPU/Memory 제한)
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+        # 리소스 설정 (CPU/Memory 제한)
+        resources:
+{{- toYaml .Values.backend.resources | nindent 10 }}
 {{- end }}
