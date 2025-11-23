@@ -47,13 +47,14 @@ spec:
 
           readinessProbe:
             httpGet:
-              # Context Path가 /api 이므로 반드시 /api가 포함된 경로여야 합니다.
-              # Swagger 페이지나 Actuator 주소를 넣으세요.
+              # [핵심] 님 서버가 확실하게 대답해줄 수 있는 유일한 주소입니다.
               path: /api/swagger-ui/index.html
               port: 8080
-            initialDelaySeconds: 60  # 앱이 41초 걸리므로 60초로 넉넉하게!
-            periodSeconds: 15
-            failureThreshold: 5
+            # [핵심] 서버 켜지는 데 41초 걸린다고 하셨으니, 
+            # 60초 동안은 헬스체크 하지 말고 그냥 기다리라고 설정합니다.
+            initialDelaySeconds: 60 
+            periodSeconds: 10
+            failureThreshold: 10    # 10번이나 실패해야 죽은 걸로 쳐라 (매우 관대하게)
             timeoutSeconds: 5
 
           # 2. 환경 변수
