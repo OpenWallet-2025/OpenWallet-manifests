@@ -7,15 +7,13 @@ metadata:
   labels:
 {{- include "openwallet-backend.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.backend.replicaCount }}  # [수정참고] values 구조에 따라 .Values.backend.replicaCount 일 수 있음 확인 필요
   
-  # [1] 배포 전략 (RollingUpdate) ★ 추가됨 ★
-  # 새 버전이 뜰 때 기존 버전을 언제 끌지 결정 (무중단 배포 필수)
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1       # 하나 더 띄우고
-      maxUnavailable: 0 # 하나도 죽이지 마라 (안정성 중시)
+      maxSurge: 1
+      maxUnavailable: 0
 
   selector:
     matchLabels:
@@ -32,35 +30,37 @@ spec:
           ports:
             - containerPort: {{ .Values.backend.port }}
 
-          # [3] 헬스 체크 프로브 (Health Checks) ★ 가장 중요 ★
-          # Spring Boot는 켜지는 데 시간이 걸리므로 이게 없으면 켜지기도 전에 요청받고 에러 냅니다.
-        startupProbe:
+          # [중요] 아래 항목들은 ports와 같은 세로선(들여쓰기)에 위치해야 합니다.
+          
+          # 1. 헬스 체크
+          startupProbe:
             tcpSocket:
               port: {{ .Values.backend.port }}
             failureThreshold: 30
             periodSeconds: 10
 
-        livenessProbe:
-          tcpSocket:
-            port: {{ .Values.backend.port }}
-          initialDelaySeconds: 15
-          periodSeconds: 20
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.backend.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 20
 
-        readinessProbe:
-          tcpSocket:
-            port: {{ .Values.backend.port }}
-          initialDelaySeconds: 5
-          periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.backend.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
 
-        env:
-          - name: SPRING_DATASOURCE_URL
-            value: {{ .Values.backend.env.dbUrl }}
-          - name: SPRING_DATASOURCE_USERNAME
-            value: {{ .Values.backend.env.dbUsername }}
-          - name: SPRING_DATASOURCE_PASSWORD
-            value: {{ .Values.backend.env.dbPassword | quote }} # quote 함수로 문자열 처리 권장
+          # 2. 환경 변수
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: {{ .Values.backend.env.dbUrl }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.backend.env.dbUsername }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.backend.env.dbPassword | quote }}
 
-        # 리소스 설정 (CPU/Memory 제한)
-        resources:
-{{- toYaml .Values.backend.resources | nindent 10 }}
+          # 3. 리소스 설정
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
 {{- end }}
