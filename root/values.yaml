@@ -17,7 +17,7 @@ applications:
       releaseName: openwallet-frontend-dev
 
   backend:
-    enabled: false
+    enabled: true
     name: openwallet-backend-dev
     path: apps/backend
     helm:

@@ -1,0 +1,66 @@
+{{- if .Values.backend.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "openwallet-backend.fullname" . }}
+  namespace: openwallet
+  labels:
+    {{- include "openwallet-backend.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  
+  # [1] 배포 전략 (RollingUpdate) ★ 추가됨 ★
+  # 새 버전이 뜰 때 기존 버전을 언제 끌지 결정 (무중단 배포 필수)
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1       # 하나 더 띄우고
+      maxUnavailable: 0 # 하나도 죽이지 마라 (안정성 중시)
+
+  selector:
+    matchLabels:
+      {{- include "openwallet-backend.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "openwallet-backend.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: backend
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.backend.port }}
+
+          # [3] 헬스 체크 프로브 (Health Checks) ★ 가장 중요 ★
+          # Spring Boot는 켜지는 데 시간이 걸리므로 이게 없으면 켜지기도 전에 요청받고 에러 냅니다.
+        startupProbe:
+            tcpSocket:
+              port: {{ .Values.backend.port }}
+            failureThreshold: 30
+            periodSeconds: 10
+
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.backend.port }}
+          initialDelaySeconds: 15
+          periodSeconds: 20
+
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.backend.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: {{ .Values.backend.env.db-url }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.backend.env.db-user-name }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.backend.env.db-password | quote }} # quote 함수로 문자열 처리 권장
+
+          # 리소스 설정 (CPU/Memory 제한)
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+{{- end }}

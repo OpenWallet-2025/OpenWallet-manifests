@@ -1,0 +1,17 @@
+{{- if .Values.backend.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.backend.service.name }}
+  namespace: openwallet
+  labels:
+    {{ include "openwallet-backend.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    {{ include "openwallet-backend.selectorLabels" . | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.backend.service.port }}
+      targetPort: {{ .Values.backend.service.targetPort }}
+{{- end }}
