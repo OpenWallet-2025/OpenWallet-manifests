@@ -6,7 +6,7 @@ backend:
   # Deployment 설정
   image:
     repository: jaejeong999/openwallet-be
-    tag: "v1"
+    tag: "v2"
     pullPolicy: Always
   replicaCount: 1
   port: 8080
