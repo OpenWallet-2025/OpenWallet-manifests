@@ -30,32 +30,29 @@ spec:
           ports:
             - containerPort: {{ .Values.backend.port }}
 
-          # [중요] 아래 항목들은 ports와 같은 세로선(들여쓰기)에 위치해야 합니다.
-          
-          # 1. 헬스 체크
+          # (애플리케이션 컨텍스트 로딩 확인)
           startupProbe:
-            tcpSocket:
+            httpGet:
+              path: /api/actuator/health/liveness
               port: {{ .Values.backend.port }}
             failureThreshold: 30
             periodSeconds: 10
 
+          # (Deadlock 등 내부 상태 확인)
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /api/actuator/health/liveness
               port: {{ .Values.backend.port }}
-            initialDelaySeconds: 15
-            periodSeconds: 20
+            initialDelaySeconds: 10
+            periodSeconds: 15
 
+          # (DB 연결 등 외부 의존성 체크 포함)
           readinessProbe:
             httpGet:
-              # [핵심] 님 서버가 확실하게 대답해줄 수 있는 유일한 주소입니다.
-              path: /api/swagger-ui/index.html
-              port: 8080
-            # [핵심] 서버 켜지는 데 41초 걸린다고 하셨으니, 
-            # 60초 동안은 헬스체크 하지 말고 그냥 기다리라고 설정합니다.
-            initialDelaySeconds: 60 
+              path: /api/actuator/health/readiness
+              port: {{ .Values.backend.port }}
+            initialDelaySeconds: 20
             periodSeconds: 10
-            failureThreshold: 10    # 10번이나 실패해야 죽은 걸로 쳐라 (매우 관대하게)
-            timeoutSeconds: 5
 
           # 2. 환경 변수
           env:
