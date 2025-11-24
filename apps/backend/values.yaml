@@ -5,7 +5,7 @@ backend:
 
   # Deployment 설정
   image:
-    repository: jaejeong999/openwallet-be
+    repository: ghcr.io/openwallet-2025/backend
     tag: "v2"
     pullPolicy: Always
   replicaCount: 1
