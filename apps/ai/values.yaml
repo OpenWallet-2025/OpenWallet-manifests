@@ -4,7 +4,7 @@ ai:
   # Deployment 설정
   image:
     repository: jaejeong999/aitest
-    tag: "2"
+    tag: 2
     pullPolicy: Always
   replicaCount: 1
   port: 8000
