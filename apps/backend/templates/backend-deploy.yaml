@@ -66,7 +66,7 @@ spec:
               value: {{ .Values.backend.contextPath }}
           # ai 서버 연결을 위한 ai 서버의 서비스 도메인:port 주소 지정
             - name: AI_SERVER_URL 
-                value: "http://ai-service:8080"
+              value: "http://ai-service:8080"
           # 3. 리소스 설정
           resources:
             {{- toYaml .Values.backend.resources | nindent 12 }}
