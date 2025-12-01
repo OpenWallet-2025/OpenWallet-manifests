@@ -1,0 +1,19 @@
+ai:
+  fullnameOverride: openwallet-ai-server
+  enabled: true
+  # Deployment 설정
+  image:
+    repository: jaejeong999/aitest
+    tag: "2"
+    pullPolicy: Always
+  replicaCount: 1
+  port: 8000
+  env:
+    dbUrl: "jdbc:mysql://10.123.144.3:3306/openwallet-db?useSSL=false&allowPublicKeyRetrieval=true" # 수정 필요
+    dbUsername: "openwallet"
+    dbPassword: "openwallet1234"
+  # Service 설정
+  service:
+    name: ai-server
+    port: 8000
+    targetPort: 8000

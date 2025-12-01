@@ -24,7 +24,7 @@ applications:
       releaseName: openwallet-backend-dev
 
   ai:
-    enabled: false
+    enabled: true
     name: openwallet-ai-dev
     path: apps/ai
     helm:
