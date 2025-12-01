@@ -1,0 +1,22 @@
+{{- if .Values.backend.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.ai.service.name }}
+  namespace: openwallet
+  labels:
+    {{ include "openwallet-ai.labels" . | nindent 4 }}
+  # annotations:
+  #   cloud.google.com/backend-config: '{"default": "backend-health-check"}'
+  # ai 서버도 backend conf 필요한지 찾아봐야 함
+spec:
+  type: ClusterIP
+  selector:
+    {{ include "openwallet-ai.selectorLabels" . | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.backend.service.port }}
+      targetPort: {{ .Values.backend.service.targetPort }}
+{{- end }}
+
+
