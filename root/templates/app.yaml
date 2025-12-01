@@ -45,8 +45,8 @@ kind: Application
 metadata:
   name: {{ .Values.applications.ai.name }}
   namespace: argocd
-   finalizers:
-      - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: openwallet
   source:
