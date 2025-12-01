@@ -11,7 +11,7 @@ data:
         server_name _;
         root /usr/share/nginx/html;
 
-        location ~* ^/js/.*\.(js)$ {
+        location ~* ^/Js/.*\.(js)$ {
           expires off;
           add_header Cache-Control "public, must-revalidate";
           try_files $uri =404;
