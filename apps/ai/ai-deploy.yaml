@@ -1,0 +1,86 @@
+{{- if .Values.ai.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "openwallet-ai.fullname" . }}
+  namespace: openwallet
+  labels:
+{{- include "openwallet-ai.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.ai.replicaCount }}  
+  
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  selector:
+    matchLabels:
+{{- include "openwallet-ai.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+{{- include "openwallet-ai.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: ai-server
+          image: "{{ .Values.ai.image.repository }}:{{ .Values.ai.image.tag }}"
+          imagePullPolicy: {{ .Values.ai.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.ai.port }}
+
+          # (애플리케이션 컨텍스트 로딩 확인)
+          startupProbe:
+            httpGet:
+              path: /api/actuator/health/liveness
+              port: {{ .Values.ai.port }}
+              
+            failureThreshold: 30
+            periodSeconds: 10
+
+          # (Deadlock 등 내부 상태 확인)
+          livenessProbe:
+            httpGet:
+              path: /api/actuator/health/liveness
+              port: {{ .Values.ai.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 15
+
+          # (DB 연결 등 외부 의존성 체크 포함)
+          readinessProbe:
+            httpGet:
+              path: /api/actuator/health/readiness
+              port: {{ .Values.backend.port }}
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+          # 2. 환경 변수
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: {{ .Values.backend.env.dbUrl }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.backend.env.dbUsername }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.backend.env.dbPassword | quote }}
+            - name: SERVER_SERVLET_CONTEXT_PATH
+              value: {{ .Values.backend.contextPath }}
+
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: "/var/secrets/google/key.json"
+          
+          volumeMounts:
+            - name: google-cloud-key
+              mountPath: "/var/secrets/google"
+              readOnly: true
+          
+
+
+          # 3. 리소스 설정
+          # resources:
+          #   {{- toYaml .Values.backend.resources | nindent 12 }}
+    volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: gcp-auth-key
+{{- end }}
