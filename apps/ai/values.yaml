@@ -4,7 +4,7 @@ ai:
   # Deployment 설정
   image:
     repository: jaejeong999/aitest
-    tag: 2
+    tag: 3
     pullPolicy: Always
   replicaCount: 1
   port: 8000
@@ -12,6 +12,15 @@ ai:
     dbUrl: "jdbc:mysql://10.123.144.3:3306/openwallet-db?useSSL=false&allowPublicKeyRetrieval=true" # 수정 필요
     dbUsername: "openwallet"
     dbPassword: "openwallet1234"
+  proxy:
+    name: cloud-sql-proxy
+    image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.0
+    args:
+          - "--private-ip"
+          - "my-project:asia-northeast3:openwallet-db"
+          - "--port=3306"
+  runAsNonRoot: true
+
   # Service 설정
   service:
     name: ai-server

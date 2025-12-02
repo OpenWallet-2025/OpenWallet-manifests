@@ -18,6 +18,7 @@ backend:
     name: backend-server
     port: 8080
     targetPort: 8080
+  serviceAccountName: openwallet-ksa
   resources:
     requests:
       memory: "512Mi" # 최소 보장
