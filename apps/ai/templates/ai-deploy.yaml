@@ -44,8 +44,7 @@ spec:
               readOnly: true
           
 
-          resources:
-              {{- toYaml .Values.ai.resources | nindent 12 }}
+       
         
 
       volumes:
