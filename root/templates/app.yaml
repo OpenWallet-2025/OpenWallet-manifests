@@ -8,9 +8,9 @@ metadata:
       - resources-C.argocd.argoproj.io
 spec:
   project: openwallet
-  source: {{ .Values.applications.frontend.path }}
+  source: 
     repoURL: {{ .Values.git.repoURL }}
-    path: apps/frontend
+    path: {{ .Values.applications.frontend.path }}
     targetRevision: {{ .Values.git.targetRevision }}
     
   destination:
