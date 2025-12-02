@@ -39,12 +39,12 @@ ai:
   resources:
     requests:
       # 평소 대기 상태: 최소한의 자원만 점유
-      cpu: "2"              # 0.5 코어 (기본 앱 구동용)
+      cpu: "4"              # 0.5 코어 (기본 앱 구동용)
       memory: "8Gi"            # 1 GB (앱 대기 상태)
       ephemeral-storage: "10Gi" # 로그 및 기본 파일용
     limits:
       # AI 모델(Kanana 2.1B) 구동 및 추론 시: 자원 확장
-      cpu: "2"                 # 4 코어 (CPU 추론 속도 확보를 위해 넉넉히)
+      cpu: "4"                 # 4 코어 (CPU 추론 속도 확보를 위해 넉넉히)
       memory: "8Gi"            # 8 GB (2.1B 모델 로딩 4.2GB + 추론 여유분)
       ephemeral-storage: "10Gi" # 20 GB (모델 다운로드/캐시 공간 충분히 확보)
   # Service 설정
