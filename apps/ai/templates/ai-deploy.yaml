@@ -66,9 +66,9 @@ spec:
               readOnly: true
           
 
-          {{/* resources:
-              {{- toYaml .Values.backend.resources | nindent 12 }}
-          */}}
+          resources:
+              {{- toYaml .Values.ai.resources | nindent 12 }}
+        
 
       volumes:
         - name: google-cloud-key
