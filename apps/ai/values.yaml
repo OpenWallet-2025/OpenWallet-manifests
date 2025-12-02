@@ -10,12 +10,12 @@ ai:
   port: 8000
   livenessProbe:
     httpGet:
-      path: /health  # 혹은 /health
+      path: /health  # 혹은 /health, 이게 요청 보내고 오래 걸리면 지속적으로 체크하는 놈
       port: 8000
     initialDelaySeconds: 5   # startupProbe가 성공한 뒤 5초 후부터 시작
     periodSeconds: 20        # 20초마다 검사
-    timeoutSeconds: 10       # 10초 안에 응답 없으면 실패 간주
-    failureThreshold: 3      # 3번 실패하면 재시작
+    timeoutSeconds: 20       # 10초 안에 응답 없으면 실패 간주
+    failureThreshold: 30      # 3번 실패하면 재시작
 
   # 2. [핵심] 시작할 때 충분히 기다려주는 Startup Probe 추가
   startupProbe:
