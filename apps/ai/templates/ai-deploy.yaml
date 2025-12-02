@@ -29,33 +29,11 @@ spec:
           imagePullPolicy: {{ .Values.ai.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.ai.port }}
-
-          # # (애플리케이션 컨텍스트 로딩 확인)
-          # startupProbe:
-          #   httpGet:
-          #     path: /api/actuator/health/liveness
-          #     port: {{ .Values.ai.port }}
-              
-          #   failureThreshold: 30
-          #   periodSeconds: 10
-
-          # # (Deadlock 등 내부 상태 확인)
-          # livenessProbe:
-          #   httpGet:
-          #     path: /api/actuator/health/liveness
-          #     port: {{ .Values.ai.port }}
-          #   initialDelaySeconds: 10
-          #   periodSeconds: 15
-
-          # # (DB 연결 등 외부 의존성 체크 포함)
-          # readinessProbe:
-          #   httpGet:
-          #     path: /api/actuator/health/readiness
-          #     port: {{ .Values.ai.port }}
-          #   initialDelaySeconds: 20
-          #   periodSeconds: 10
-
-          # 2. 환경 변수
+          livenessProbe:
+{{- toYaml .Values.ai.livenessProbe | nindent 12 }}
+          startupProbe:
+{{- toYaml .Values.ai.startupProbe | nindent 12 }}
+         
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: "/var/secrets/google/key.json"
