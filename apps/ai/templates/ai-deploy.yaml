@@ -46,6 +46,15 @@ spec:
 
           resources:
               {{- toYaml .Values.ai.resources | nindent 12 }}
+              
+        - name: cloud-sql-proxy
+          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.0
+          args:
+            - "--private-ip"
+            - "my-project:asia-northeast3:openwallet-db"
+            - "--port=3306"
+          securityContext:
+            runAsNonRoot: true
         
 
       volumes:
