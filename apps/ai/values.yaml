@@ -3,8 +3,8 @@ ai:
   enabled: true
   # Deployment 설정
   image:
-    repository:
-    tag:
+    repository: ghcr.io/openwallet-2025/ai
+    tag: ""
     pullPolicy: Always
   replicaCount: 1
   port: 8000
