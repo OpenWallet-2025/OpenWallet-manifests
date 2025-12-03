@@ -4,7 +4,7 @@ backend:
   # Deployment 설정
   image:
     repository: ghcr.io/openwallet-2025/backend
-    tag: "ed5087a4f87cd3ca3b86368caff60e7e41810d8b"
+    tag: "61c9242c2fa6f93dd63f6c46707ce3cd354e1ebc"
     pullPolicy: Always
   replicaCount: 1
   port: 8080
