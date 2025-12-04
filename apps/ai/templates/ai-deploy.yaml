@@ -26,6 +26,9 @@ spec:
       containers:
         - name: ai-server
           image: "{{ .Values.ai.image.repository }}:{{ .Values.ai.image.tag }}"
+          command: {{- .Values.ai.command}}
+          args:
+{{- toYaml .Values.ai.args | nindent 12 }}
           imagePullPolicy: {{ .Values.ai.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.ai.port }}
