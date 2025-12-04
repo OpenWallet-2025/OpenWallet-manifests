@@ -79,7 +79,7 @@ spec:
           image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.0
           args:
             - "--private-ip"
-            - "my-project:asia-northeast3:openwallet-db"
+            - "open-sw-project:asia-northeast3:openwallet-db"
             - "--port=3306"
           securityContext:
             runAsNonRoot: true
