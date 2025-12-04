@@ -1,55 +1,51 @@
 ai:
   fullnameOverride: openwallet-ai-server
   enabled: true
-  # Deployment 설정
   image:
     repository: ghcr.io/openwallet-2025/ai
-    tag: "0ba1e35"
+    tag: 0ba1e35
     pullPolicy: Always
   replicaCount: 1
   port: 8000
   livenessProbe:
     httpGet:
-      path: /health  # 혹은 /health, 이게 요청 보내고 오래 걸리면 지속적으로 체크하는 놈
+      path: /health
       port: 8000
-    initialDelaySeconds: 5   # startupProbe가 성공한 뒤 5초 후부터 시작
-    periodSeconds: 20        # 20초마다 검사
-    timeoutSeconds: 20       # 10초 안에 응답 없으면 실패 간주
-    failureThreshold: 30      # 30번 실패하면 재시작
-
-  # 2. [핵심] 시작할 때 충분히 기다려주는 Startup Probe 추가
+    initialDelaySeconds: 5
+    periodSeconds: 20
+    timeoutSeconds: 20
+    failureThreshold: 30
   startupProbe:
     httpGet:
-      path: /health  # 혹은 /health
+      path: /health
       port: 8000
-    failureThreshold: 30     # 30번 실패할 때까지는 안 죽임
-    periodSeconds: 10        # 10초 간격으로 체크
+    failureThreshold: 30
+    periodSeconds: 10
   env:
-    dbUrl: "jdbc:mysql://10.123.144.3:3306/openwallet-db?useSSL=false&allowPublicKeyRetrieval=true" # 수정 필요
-    dbUsername: "openwallet"
-    dbPassword: "openwallet1234"
+    dbUrl: jdbc:mysql://10.123.144.3:3306/openwallet-db?useSSL=false&allowPublicKeyRetrieval=true
+    dbUsername: openwallet
+    dbPassword: openwallet1234
   proxy:
     name: cloud-sql-proxy
     image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.0
     args:
-          - "--private-ip"
-          - "my-project:asia-northeast3:openwallet-db"
-          - "--port=3306"
+      - '--private-ip'
+      - my-project:asia-northeast3:openwallet-db
+      - '--port=3306'
   runAsNonRoot: true
   resources:
     requests:
-      # 평소 대기 상태: 최소한의 자원만 점유
-      cpu: "2"              # 0.5 코어 (기본 앱 구동용)
-      memory: "16Gi"            # 1 GB (앱 대기 상태)
-      ephemeral-storage: "5Gi" # 로그 및 기본 파일용
+      cpu: '2'
+      memory: 16Gi
+      ephemeral-storage: 5Gi
     limits:
-      # AI 모델(Kanana 2.1B) 구동 및 추론 시: 자원 확장
-      cpu: "2"                 # 4 코어 (CPU 추론 속도 확보를 위해 넉넉히)
-      memory: "16Gi"            # 8 GB (2.1B 모델 로딩 4.2GB + 추론 여유분)
-      ephemeral-storage: "5Gi" # 20 GB (모델 다운로드/캐시 공간 충분히 확보)
-  # Service 설정
+      cpu: '2'
+      memory: 16Gi
+      ephemeral-storage: 5Gi
   service:
     name: ai-server
     port: 8000
     targetPort: 8000
-  
+image:
+  repository: ghcr.io/OpenWallet-2025/ai
+  tag: a1e5419
