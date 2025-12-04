@@ -53,7 +53,7 @@ spec:
               
               # 원래 실행하려던 명령어 실행
               uvicorn main:app --host 0.0.0.0 --port 8000
-  replicaCount: 1
+          replicaCount: 1
           imagePullPolicy: {{ .Values.ai.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.ai.port }}
