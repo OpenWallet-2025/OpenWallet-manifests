@@ -64,11 +64,11 @@ ai:
     requests:
       cpu: '2'
       memory: 16Gi
-      ephemeral-storage: 10Gi
+      ephemeral-storage: 8Gi
     limits:
       cpu: '2'
       memory: 16Gi
-      ephemeral-storage: 10Gi
+      ephemeral-storage: 8Gi
   service:
     name: ai-server
     port: 8000
