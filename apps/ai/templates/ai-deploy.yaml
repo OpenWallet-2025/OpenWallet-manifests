@@ -23,6 +23,7 @@ spec:
       labels:
 {{- include "openwallet-ai.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: openwallet-ksa
       containers:
         - name: ai-server
           image: "{{ .Values.ai.image.repository }}:{{ .Values.ai.image.tag }}"
