@@ -26,9 +26,34 @@ spec:
       containers:
         - name: ai-server
           image: "{{ .Values.ai.image.repository }}:{{ .Values.ai.image.tag }}"
-          command: {{- .Values.ai.command}}
+          command: ["/bin/sh", "-c"]
           args:
-{{- toYaml .Values.ai.args | nindent 12 }}
+            - |
+              echo "Waiting for Cloud SQL Proxy (127.0.0.1:3306)..."
+              
+              # 최대 30번 시도 (약 60초 대기)
+              RETRIES=30
+              
+              # Python을 이용해 3306 포트 연결 시도 (nc 명령어 대체)
+              while ! python -c "import socket; s = socket.create_connection(('127.0.0.1', 3306), timeout=1)" 2>/dev/null; do
+                
+                # 횟수 차감 및 체크
+                RETRIES=$((RETRIES-1))
+                if [ $RETRIES -le 0 ]; then
+                  echo "❌ Error: Timed out waiting for Database connection!"
+                  exit 1
+                fi
+                
+                echo "⏳ Proxy not ready yet... retrying ($RETRIES left)"
+                sleep 2
+              
+              done
+              
+              echo "✅ Proxy is up! Starting FastAPI..."
+              
+              # 원래 실행하려던 명령어 실행
+              uvicorn main:app --host 0.0.0.0 --port 8000
+  replicaCount: 1
           imagePullPolicy: {{ .Values.ai.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.ai.port }}
