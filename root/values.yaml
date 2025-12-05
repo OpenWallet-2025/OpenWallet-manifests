@@ -10,28 +10,28 @@ destination:
 
 applications:
   frontend:
-    enabled: true
+    enabled: false
     name: openwallet-frontend-dev
     path: apps/frontend
     helm:
       releaseName: openwallet-frontend-dev
 
   backend:
-    enabled: true
+    enabled: false
     name: openwallet-backend-dev
     path: apps/backend
     helm:
       releaseName: openwallet-backend-dev
 
   ai:
-    enabled: true
+    enabled: false
     name: openwallet-ai-dev
     path: apps/ai
     helm:
       releaseName: openwallet-ai-dev
 
   ingress:
-    enabled: true
+    enabled: false
     name: openwallet-ingress-dev
     path: infra/ingress
     helm:
