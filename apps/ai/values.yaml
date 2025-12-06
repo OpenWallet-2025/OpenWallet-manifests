@@ -77,4 +77,4 @@ ai:
     targetPort: 8000
 image:
   repository: ghcr.io/OpenWallet-2025/ai
-  tag: 9b39608
+  tag: 435fb3f
